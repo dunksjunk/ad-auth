@@ -14,7 +14,7 @@
     ],
     "require": {
         "php" : ">=5.3.0",
-        "php-ldap" : "*",
+        "ext-ldap" : "*",
         "laravel/framework": "~5.0"
     },
     "autoload": {
