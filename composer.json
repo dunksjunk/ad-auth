@@ -1,8 +1,8 @@
 {
-    "name": "dunksjunk/ADAuth",
+    "name": "dunksjunk/ad-auth",
     "description": "A Laravel 5 package to add Active Directory authentication and optional local database user mapping.",
-    "keywords": ["dunksjunk", "ADAuth", "laravel", "ldap", "Active Directory"],
-    "homepage": "https://github.com/dunksjunk/ADAuth",
+    "keywords": ["dunksjunk", "ad-auth", "laravel", "ldap", "Active Directory"],
+    "homepage": "https://github.com/dunksjunk/ad-auth",
     "license": "MIT",
     "authors": [
         {
