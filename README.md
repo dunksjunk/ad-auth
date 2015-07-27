@@ -26,7 +26,6 @@ If you discover any security related issues, please email richdunkel@gmail.com i
 ## Credits
 
 - [Rich Dunkel][link-author]
-- [All Contributors][link-contributors]
 
 ## License
 
