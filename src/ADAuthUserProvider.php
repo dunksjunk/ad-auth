@@ -45,7 +45,7 @@ class ADAuthUserProvider implements UserProvider {
    * @param none
    */  
   public function __construct() {
-    fetchConfig();
+    $this->fetchConfig();
   }
 
   public function retrieveById( $identifier ){
@@ -80,15 +80,15 @@ class ADAuthUserProvider implements UserProvider {
   }
   
   private function fetchConfig() {
-    $this->adAuthServer = Config::get( 'adauth.adAuthServer' );
-    $this->adAuthPort = Config::get( 'adauth.adAuthPort' );
-    $this->adAuthShortDomain = Config::get( 'adauth.adAuthShortDomain' );
-    $this->adAuthModel = Config::get( 'auth.model' );    
+    $this->adAuthServer = \Config::get( 'adauth:adAuthServer' );
+    $this->adAuthPort = \Config::get( 'adauth.adAuthPort' );
+    $this->adAuthShortDomain = \Config::get( 'adauth.adAuthShortDomain' );
+    $this->adAuthModel = \Config::get( 'auth.model' );    
   }
   
   private function serverConnect() {
     $adConnectionString = 'ldap://';
-    $adConnectionString .= $this->adAuthServer . ':' $this->adAuthPort . '/'; 
+    $adConnectionString .= $this->adAuthServer . ':' . $this->adAuthPort . '/'; 
     
     $this->adConnection = ldap_connect( $adConnectionString );
 
