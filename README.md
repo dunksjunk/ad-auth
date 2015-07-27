@@ -1,7 +1,6 @@
 # ADAuth
 
-This is where your description should go. Try and limit it to a paragraph or two, and maybe throw in a mention of what
-PSRs you support to avoid any confusion with users and contributors.
+A Laravel 5 package to add Active Directory authentication and optional local database user mapping.
 
 ## Install
 
