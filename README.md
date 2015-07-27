@@ -7,7 +7,7 @@ A Laravel 5 package to add Active Directory authentication and optional local da
 Via Composer
 
 ``` bash
-$ composer require dunksjunk/ADAuth
+$ composer require dunksjunk/ad-auth
 ```
 
 ## Usage
