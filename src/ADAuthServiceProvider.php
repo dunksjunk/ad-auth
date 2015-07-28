@@ -11,7 +11,8 @@ class ADAuthServiceProvider extends ServiceProvider {
      * @return void
      */
     public function boot() {
-      $this->publishes( [__DIR__ . '/config/adauth.php' => config_path( 'adauth.php' )] );
+      $this->package('dunksjunk\ADAuth', 'ADAuth');
+      $this->publishes( [__DIR__ . '/config/adauth.php' => config_path( 'adauth.php' )], 'config' );
       
       Auth::extend( 'ads', function( $app ) {
         return new ADAuthUserProvider();
