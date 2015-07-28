@@ -31,6 +31,7 @@ class ADAuthUserProvider implements UserProvider {
    *
    * @var string
    */
+  protected $model;
 
    /**
    * Server Connection
@@ -46,6 +47,7 @@ class ADAuthUserProvider implements UserProvider {
    * @param none
    */
   public function __construct() {
+    $this->model = \Config::get( 'auth.model' );
     $this->fetchConfig();
   }
 
@@ -71,18 +73,44 @@ class ADAuthUserProvider implements UserProvider {
   }
 
 
-  public function retrieveByCredentials( array $credentials ){}
+  public function retrieveByCredentials( array $credentials ){
+    $query = $this->createModel()->newQuery();
+
+    foreach ( $credentials as $key => $value ) {
+      if ( ! str_contains( $key, 'password' ) ) {
+        $query->where( $key, $value );
+      }
+    }
+
+    return $query->first();
+  }
 
 
   public function validateCredentials( Authenticatable $user, array $credentials ){
-    if ( !$this->adConnection = serverConnect() ) {
+    $username = '';
+    $password='';
+
+    // Find a better way to deal with this
+    foreach ( $credentials as $key => $value ) {
+      if ( ! str_contains( $key, 'password' ) ) {
+        $username = $value;
+      } else {
+        $password = $value;
+      }
+    }
+
+    if ( $this->adConnection = $this->serverConnect() ) {
+      // if it binds, it finds
+      $adResult = @ldap_bind( $this->adConnection, $this->adAuthShortDomain . '\\' . $username, $password );
+
+        // Grab info here (Future Expansion)
+
+      ldap_unbind( $this->adConnection );
+      return $adResult;
+    } else {
       throw new Exception( 'Can not connect to Active Directory Server.' );
     }
 
-    // handle the credentials better
-    $adResult = ldap_bind( $this->adConnection, $credentials[0], $credentials[1] );
-    ldap_close( $this->adConnection );
-    return $adResult;
   }
 
 

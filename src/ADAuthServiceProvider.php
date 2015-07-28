@@ -1,5 +1,6 @@
 <?php namespace dunksjunk\ADAuth;
 
+use App\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\ServiceProvider;
 
@@ -11,10 +12,10 @@ class ADAuthServiceProvider extends ServiceProvider {
      * @return void
      */
     public function boot() {
-      $this->package('dunksjunk\ADAuth', 'ADAuth');
+      
       $this->publishes( [__DIR__ . '/config/adauth.php' => config_path( 'adauth.php' )], 'config' );
       
-      Auth::extend( 'ads', function( $app ) {
+      Auth::extend( 'ads', function() {
         return new ADAuthUserProvider();
       });
     }
