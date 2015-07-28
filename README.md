@@ -1,6 +1,10 @@
 # ADAuth
 
 [![Latest Version on Packagist][ico-version]][link-packagist]
+[![Coverage Status][ico-scrutinizer]][link-scrutinizer]
+[![Quality Score][ico-code-quality]][link-code-quality]
+[![Total Downloads][ico-downloads]][link-downloads]
+[![Software License][ico-license]](LICENSE.md)
 
 A Laravel 5 package to add Active Directory authentication and optional local database user mapping.
 
