@@ -32,11 +32,11 @@ class ADAuthUserProvider implements UserProvider {
    */
   protected $adAuthModel;
 
-    /**
-     * Server Connection
-     *
-     * @var resource
-     */
+  /**
+   * Server Connection
+   *
+   * @var resource
+   */
 
   protected $adConnection;
 
