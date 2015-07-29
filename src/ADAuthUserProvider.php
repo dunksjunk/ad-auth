@@ -1,9 +1,8 @@
 <?php namespace dunksjunk\ADAuth;
 
 use Exception;
-use Illuminate\Support\Facades\App;
-use Illuminate\Contracts\Auth\UserProvider;
 use Illuminate\Contracts\Auth\Authenticatable;
+use Illuminate\Contracts\Auth\UserProvider;
 
 class ADAuthUserProvider implements UserProvider {
 
