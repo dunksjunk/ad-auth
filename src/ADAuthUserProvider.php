@@ -47,7 +47,7 @@ class ADAuthUserProvider implements UserProvider {
    * @param none
    */
   public function __construct() {
-    $this->model = \Config::get( 'auth.model' );
+    $this->adAuthModel = \Config::get( 'auth.model' );
     $this->fetchConfig();
   }
 
