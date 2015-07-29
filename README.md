@@ -65,13 +65,13 @@ The MIT License (MIT). Please see [License File](LICENSE.md) for more informatio
 
 [ico-version]: https://img.shields.io/packagist/v/dunksjunk/ad-auth.svg?style=flat-square
 [ico-license]: https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square
-[ico-scrutinizer]: https://img.shields.io/scrutinizer/coverage/g/dunksjunk/ADAuth.svg?style=flat-square
-[ico-code-quality]: https://img.shields.io/scrutinizer/g/dunksjunk/ADAuth.svg?style=flat-square
+[ico-scrutinizer]: https://img.shields.io/scrutinizer/coverage/g/dunksjunk/ad-auth.svg?style=flat-square
+[ico-code-quality]: https://img.shields.io/scrutinizer/g/dunksjunk/ad-auth.svg?style=flat-square
 [ico-downloads]: https://img.shields.io/packagist/dt/dunksjunk/ad-auth.svg?style=flat-square
 
 [link-packagist]: https://packagist.org/packages/dunksjunk/ad-auth
-[link-scrutinizer]: https://scrutinizer-ci.com/g/dunksjunk/ADAuth/code-structure
-[link-code-quality]: https://scrutinizer-ci.com/g/dunksjunk/ADAuth
+[link-scrutinizer]: https://scrutinizer-ci.com/g/dunksjunk/ad-auth/code-structure
+[link-code-quality]: https://scrutinizer-ci.com/g/dunksjunk/ad-auth
 [link-downloads]: https://packagist.org/packages/dunksjunk/ad-auth
 [link-author]: https://github.com/dunksjunk
 
