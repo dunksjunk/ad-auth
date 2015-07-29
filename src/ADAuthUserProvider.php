@@ -31,12 +31,12 @@ class ADAuthUserProvider implements UserProvider {
    *
    * @var string
    */
-  protected $model;
+  protected $adAuthModel;
 
    /**
    * Server Connection
    *
-   * @var LDAP link identifier
+   * @var resource
    */
 
   protected $adConnection;
@@ -136,7 +136,7 @@ class ADAuthUserProvider implements UserProvider {
 
 
   public function createModel() {
-    $class = '\\' . ltrim( $this->model, '\\' );
+    $class = '\\' . ltrim( $this->adAuthModel, '\\' );
     return new $class;
   }
 
