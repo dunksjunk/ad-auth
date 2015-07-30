@@ -7,7 +7,7 @@ v1.0.0 (Upcoming)
 - First Release
 ### Added
 - LDAPS support (requires OpenSSL)
-- All the pretty feedback boxes on everyne elses projects that I never pay attention to. We need some bling yo. 
+- All the pretty feedback boxes like on everyone else's projects that I never pay attention to. We need some bling yo. 
 ### Removed
 - Pre-release flag
 
