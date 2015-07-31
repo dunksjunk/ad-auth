@@ -48,3 +48,5 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
+Notepad++/config.xml
+*.xml

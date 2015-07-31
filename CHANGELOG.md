@@ -4,7 +4,7 @@ All Notable changes to `ADAuth` will be documented in this file
 
 
 v1.0.0 (Upcoming)
-- First Release
+- First Production Release
 ### Added
 - LDAPS support (requires OpenSSL)
 - All the pretty feedback boxes like on everyone else's projects that I never pay attention to. We need some bling yo. 
@@ -22,8 +22,8 @@ v0.3.0 (Upcoming)
 - Define multiple AD Servers to query
 - Define list of fields from AD to merge into user record
 
-v0.2.0 (Upcoming)
-- Working version - does basic authentication
+v0.2.0 (You are here)
+- Working version - does basic authentication. It works, but may have breaking changes before production release. 
 ### Added
 - Very Basic error checking
 
