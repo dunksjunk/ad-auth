@@ -2,7 +2,7 @@
 
 return [
 
-   /*
+    /*
     |--------------------------------------------------------------------------
     | ADS Authentication SETUP
     |--------------------------------------------------------------------------
@@ -23,31 +23,31 @@ return [
     'adAuthPort'  => 389,
     'adAuthShortDomain'  => 'mydomain',
 	
-   /*
+    /*
     | array of field names from domain account to graft onto user record. 
     |
     | use: user->(field name);
     | NOT IMPLEMENTED YET
     */
-	'adAuthGraftFields'  => array(),
+  'adAuthGraftFields'  => array(),
 
-   /*
+    /*
     | If user database record is found, but Active Directory entry is not found,
     | authenticate against password in database (if set). 
     | 
     | Good for that initial Administrator record. 
     | NOT IMPLEMENTED YET
     */
-	'adAuthDBFallback'  => true,
+  'adAuthDBFallback'  => true,
 	
-   /*
+    /*
     | If user authenticates against Active Directory, but has no database record,
     | create one and move on, if not, fail user authentication.
     | 
     | adAuthUserDefaults: Any default values to insert into new user record. 
     | NOT IMPLEMENTED YET
     */
-	'adAuthCreateNew'  => false,
-	'adAuthUserDefaults'  => array(),
+  'adAuthCreateNew'  => false,
+  'adAuthUserDefaults'  => array(),
 	
 ];
