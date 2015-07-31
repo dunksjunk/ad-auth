@@ -35,13 +35,7 @@ $ php artisan vendor:publish --provider="dunksjunk\ADAuth\ADAuthServiceProvider"
 ```
 This will place an adauth.php file in your config directory.
 
-Edit your config file(s) with the proper information. You can use either your .env file or /config/adauth.php:
-
-``` bash
-ADS_SERVER=dc1.mydomain.com
-ADS_PORT=389
-ADS_SHORT_DOMAIN=mydomain
-```
+Edit config/adauth.php with your domain information and other settings.
 
 Finally, modify /config/auth.php to use the ADAuth driver: 
 
