@@ -8,7 +8,7 @@ class ADAuthUserProvider implements UserProvider {
 
   /**
    * Configuration Parameters
-   * Can be set in config file or .env
+   * Can be set in config file 
    *
    * Port will default to '389'
    *
@@ -17,9 +17,6 @@ class ADAuthUserProvider implements UserProvider {
    * Future Expansion: Add encryption option.
    *    - Side Effect: Enabling encryption will change default port to '636'
    *    - Side Effect: Will require SSL Library
-   *
-   * Note: User Credentials used for lookup does not need any privileges beyond looking up users.
-   *       It would be a wise idea to use a special made user for this purpose.
    */
   protected $adAuthServer;
   protected $adAuthPort;
@@ -33,11 +30,38 @@ class ADAuthUserProvider implements UserProvider {
   protected $adAuthModel;
 
   /**
+   * From config: List of Active Directory fields to graft onto user object
+   *
+   * @var array
+   */  
+  protected $adAuthGraftFields;
+  
+  /**
+   * From config: Auth DB user if user not found on Active Directory
+   *
+   * @var boolean
+   */  
+  protected $adAuthDBFallback;
+  
+  /**
+   * From config: If DB user not found, but Active Directory user is, create DB User
+   *
+   * @var boolean
+   */  
+  protected $adAuthCreateNew;
+  
+  /**
+   * From config: Field defaults if generating new user
+   *
+   * @var array
+   */  
+  protected $adAuthUserDefaults;
+	
+  /**
    * Server Connection
    *
    * @var resource
    */
-
   protected $adConnection;
 
 
@@ -50,11 +74,9 @@ class ADAuthUserProvider implements UserProvider {
     $this->fetchConfig();
   }
 
-
   public function retrieveById($identifier) {
     return $this->createModel()->newQuery()->find($identifier);
   }
-
 
   public function retrieveByToken($identifier, $token) {
     $model = $this->createModel();
@@ -65,12 +87,10 @@ class ADAuthUserProvider implements UserProvider {
         ->first();
   }
 
-
   public function updateRememberToken(Authenticatable $user, $token) {
     $user->setRememberToken($token);
     $user->save();
   }
-
 
   public function retrieveByCredentials(array $credentials) {
     $query = $this->createModel()->newQuery();
@@ -83,7 +103,6 @@ class ADAuthUserProvider implements UserProvider {
 
     return $query->first();
   }
-
 
   public function validateCredentials(Authenticatable $user, array $credentials) {
     $username = '';
@@ -112,14 +131,16 @@ class ADAuthUserProvider implements UserProvider {
 
   }
 
-
   private function fetchConfig() {
-    $this->adAuthServer = \Config::get('adauth.adAuthServer');
-    $this->adAuthPort = \Config::get('adauth.adAuthPort');
-    $this->adAuthShortDomain = \Config::get('adauth.adAuthShortDomain');
-    $this->adAuthModel = \Config::get('auth.model');
+    $this->adAuthServer = \Config::get('adauth.adAuthServer', array('localhost'));
+    $this->adAuthPort = \Config::get('adauth.adAuthPort', 389);
+    $this->adAuthShortDomain = \Config::get('adauth.adAuthShortDomain', 'mydomain');
+    $this->adAuthGraftFields = \Config::get('adauth.adAuthGraftFields', array());
+    $this->adAuthDBFallback = \Config::get('adauth.adAuthDBFallback', false);
+    $this->adAuthCreateNew = \Config::get('adauth.adAuthCreateNew', false);
+    $this->adAuthUserDefaults = \Config::get('adauth.adAuthUserDefaults', array());
+    $this->adAuthModel = \Config::get('auth.model', 'App\User');
   }
-
 
   private function serverConnect() {
     $adConnectionString = 'ldap://';
@@ -132,7 +153,6 @@ class ADAuthUserProvider implements UserProvider {
 
     return $this->adConnection;
   }
-
 
   public function createModel() {
     $class = '\\' . ltrim($this->adAuthModel, '\\');
