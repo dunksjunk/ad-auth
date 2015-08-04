@@ -125,10 +125,10 @@ class ADAuthUserProvider implements UserProvider {
       $adResult = @ldap_bind($this->adConnection, $this->adAuthShortDomain . '\\' . $username, $password);
         // Grab info here (Future Expansion)
       // Close connection no matter what
-      @ldap_unbind($this->adConnection);
+      ldap_unbind($this->adConnection);
 	  
       if ( $this->adAuthDBFallback && ! $adResult ) {
-		if(\Hash::check($password, $user->password)) {
+		if( \Hash::check($password, $user->getAuthPassword())) {
 		  $adResult = true;
 		}
 	  }
