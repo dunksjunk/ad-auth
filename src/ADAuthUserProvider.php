@@ -101,6 +101,9 @@ class ADAuthUserProvider implements UserProvider {
       }
     }
 
+	
+	
+	
     return $query->first();
   }
 
@@ -120,10 +123,15 @@ class ADAuthUserProvider implements UserProvider {
     if( $this->adConnection = $this->serverConnect() ) {
       // if it binds, it finds
       $adResult = @ldap_bind($this->adConnection, $this->adAuthShortDomain . '\\' . $username, $password);
-
         // Grab info here (Future Expansion)
-
-      ldap_unbind($this->adConnection);
+      // Close connection no matter what
+      @ldap_unbind($this->adConnection);
+	  
+      if ( $this->adAuthDBFallback && ! $adResult ) {
+		if(\Hash::check($password, $user->password)) {
+		  $adResult = true;
+		}
+	  }
       return $adResult;
     } else {
       throw new Exception('Can not connect to Active Directory Server.');
@@ -143,8 +151,10 @@ class ADAuthUserProvider implements UserProvider {
   }
 
   private function serverConnect() {
-    $adConnectionString = 'ldap://';
-    $adConnectionString .= $this->adAuthServer . ':' . $this->adAuthPort . '/';
+    $adConnectionString = '';
+	foreach( $this->adAuthServer as $server ) {
+      $adConnectionString .= 'ldap://' . $server . ':' . $this->adAuthPort . '/ ';
+	}
 
     $this->adConnection = ldap_connect($adConnectionString);
 

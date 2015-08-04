@@ -34,16 +34,15 @@ return [
     | use: user->(field name);
     | NOT IMPLEMENTED YET
     */
-  'adAuthGraftFields'  => array(),
+    'adAuthGraftFields'  => array(),
 
     /*
     | If user database record is found, but Active Directory entry is not found,
     | authenticate against password in database (if set). 
     | 
     | Good for that initial Administrator record. 
-    | NOT IMPLEMENTED YET
     */
-  'adAuthDBFallback'  => true,
+    'adAuthDBFallback'  => true,
 	
     /*
     | If user authenticates against Active Directory, but has no database record,

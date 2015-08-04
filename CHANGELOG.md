@@ -7,6 +7,7 @@ v1.0.0 (Upcoming)
 - First Production Release
 ### Added
 - LDAPS support (requires OpenSSL)
+- Code Cleanup
 - All the pretty feedback boxes like on everyone else's projects that I never pay attention to. We need some bling yo. 
 ### Removed
 - Pre-release flag
@@ -15,12 +16,13 @@ v0.4.0 (Upcoming)
 - Working version - does basic authentication
 ### Added
 - Option - Create user in database from AD fields if it doesn't exist
+- Option - Append list of AD fields to user record if authenticated
 
-v0.3.0 (Upcoming)
+v0.3.0 (You are here)
 - Working version - does basic authentication
 ### Added
 - Define multiple AD Servers to query
-- Define list of fields from AD to merge into user record
+- Option - Authenticate database user record if user not authenticated in AD
 
 v0.2.0 (You are here)
 - Working version - does basic authentication. It works, but may have breaking changes before production release. 
