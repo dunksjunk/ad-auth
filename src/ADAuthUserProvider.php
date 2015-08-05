@@ -1,62 +1,79 @@
 <?php namespace dunksjunk\ADAuth;
 
 use Exception;
-use Illuminate\Contracts\Auth\Authenticatable;
+use Illuminate\Contracts\Auth\Authenticatable as UserContract;
 use Illuminate\Contracts\Auth\UserProvider;
 
 class ADAuthUserProvider implements UserProvider {
 
   /**
    * Configuration Parameters
-   * Can be set in config file 
-   *
-   * Port will default to '389'
-   *
-   * @var string
-   *
-   * Future Expansion: Add encryption option.
-   *    - Side Effect: Enabling encryption will change default port to '636'
-   *    - Side Effect: Will require SSL Library
    */
-  protected $adAuthServer;
+
+  /**
+   * adAuthServer
+   * List of servers to connect to for authentication
+   * @var array
+   */
+   protected $adAuthServer;
+  
+  /**
+   * adAuthPort
+   * Server port. Default 389 or 636 for SSL
+   * @var string
+   */
   protected $adAuthPort;
+
+  /**
+   * adAuthShortDomain
+   * For prepending to account name
+   * @var string
+   */
   protected $adAuthShortDomain;
 
   /**
-   * From config: Name of eloquent model to return on successful Authentication
-   *
+   * adAuthModel
+   * User Model to return
    * @var string
    */
   protected $adAuthModel;
 
   /**
-   * From config: List of Active Directory fields to graft onto user object
+   * adAuthGraftFields
+   * List of Active Directory fields to graft onto user object
    *
    * @var array
    */  
   protected $adAuthGraftFields;
   
   /**
-   * From config: Auth DB user if user not found on Active Directory
+   * adAuthDBFallback
+   * Auth DB user if user not found on Active Directory
    *
    * @var boolean
    */  
   protected $adAuthDBFallback;
   
   /**
-   * From config: If DB user not found, but Active Directory user is, create DB User
+   * adAuthCreateNew
+   * If DB user not found, but Active Directory user is, create DB User
    *
    * @var boolean
    */  
   protected $adAuthCreateNew;
   
   /**
-   * From config: Field defaults if generating new user
+   * adAuthUserDefaults
+   * Field defaults if generating new user
    *
    * @var array
    */  
   protected $adAuthUserDefaults;
-	
+
+  /**
+   * Internal Parameters
+   */
+  
   /**
    * Server Connection
    *
@@ -87,7 +104,7 @@ class ADAuthUserProvider implements UserProvider {
         ->first();
   }
 
-  public function updateRememberToken(Authenticatable $user, $token) {
+  public function updateRememberToken(UserContract $user, $token) {
     $user->setRememberToken($token);
     $user->save();
   }
@@ -107,7 +124,7 @@ class ADAuthUserProvider implements UserProvider {
     return $query->first();
   }
 
-  public function validateCredentials(Authenticatable $user, array $credentials) {
+  public function validateCredentials(UserContract $user, array $credentials) {
     $username = '';
     $password = '';
 
@@ -152,8 +169,13 @@ class ADAuthUserProvider implements UserProvider {
 
   private function serverConnect() {
     $adConnectionString = '';
-	foreach( $this->adAuthServer as $server ) {
-      $adConnectionString .= 'ldap://' . $server . ':' . $this->adAuthPort . '/ ';
+	
+	if ( is_array( $this->adAuthServer ) ) {
+	  foreach( $this->adAuthServer as $server ) {
+        $adConnectionString .= 'ldap://' . $server . ':' . $this->adAuthPort . '/ ';
+	  }
+	} else {
+	  $adConnectionString = $this->adAuthServer;
 	}
 
     $this->adConnection = ldap_connect($adConnectionString);
