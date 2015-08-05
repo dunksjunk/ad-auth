@@ -23,7 +23,7 @@ return [
     | adAuthShortDomain: The first segment of your network domain name. 
     |     ex: 'office' if your domain is office.mydomain.com
     */
-    'adAuthServer'  => array( 'dc1.mydomain.com','dc1.mydomain.com' ),
+    'adAuthServer'  => array('dc1.mydomain.com', 'dc1.mydomain.com'),
   'adEncryption'  => 'none',
     'adAuthPort'  => 389,
     'adAuthShortDomain'  => 'mydomain',
