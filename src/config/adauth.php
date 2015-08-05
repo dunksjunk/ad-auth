@@ -24,7 +24,7 @@ return [
     |     ex: 'office' if your domain is office.mydomain.com
     */
     'adAuthServer'  => array( 'dc1.mydomain.com','dc1.mydomain.com' ),
-	'adEncryption'  => 'none',
+  'adEncryption'  => 'none',
     'adAuthPort'  => 389,
     'adAuthShortDomain'  => 'mydomain',
 	
