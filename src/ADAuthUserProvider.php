@@ -106,11 +106,6 @@ class ADAuthUserProvider implements UserProvider {
 
   public function updateRememberToken(UserContract $user, $token) {
     $user->setRememberToken($token);
-	if ( method_exists( $user, 'save' ) ) {
-		$user->save();
-	} else {
-		throw new Exception('No save method for user object.');
-	}
   }
 
   public function retrieveByCredentials(array $credentials) {
