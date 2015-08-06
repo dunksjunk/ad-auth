@@ -24,7 +24,7 @@ v0.3.0 (You are here)
 - Define multiple AD Servers to query
 - Option - Authenticate database user record if user not authenticated in AD
 
-v0.2.0 (You are here)
+v0.2.0 
 - Working version - does basic authentication. It works, but may have breaking changes before production release. 
 ### Added
 - Very Basic error checking
