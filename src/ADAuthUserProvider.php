@@ -121,7 +121,7 @@ class ADAuthUserProvider implements UserProvider {
       }
     }
 
-    if ( $this->adAuthCreateNew ) {
+    if( $this->adAuthCreateNew ) {
       return $query->firstOrNew(array_add($this->adAuthUserDefaults, $usernameField, $usernameValue));
     } else {
       return $query->first();
@@ -129,10 +129,10 @@ class ADAuthUserProvider implements UserProvider {
   }
 
   public function validateCredentials(UserContract $user, array $credentials) {
-    $username = array_first($credentials, function ($key, $value) {
+    $username = array_first($credentials, function($key, $value) {
       return $key != 'password';
     });
-    $password = array_first($credentials, function ($key, $value) {
+    $password = array_first($credentials, function($key, $value) {
       return $key == 'password';
     });
 
@@ -142,13 +142,13 @@ class ADAuthUserProvider implements UserProvider {
       $adResult = @ldap_bind($this->adConnection, $this->adAuthShortDomain . '\\' . $username, $password);
         // Grab info here (Future Expansion)
     }
-    catch (Exception $e) {
+    catch( Exception $e ) {
       throw new Exception('Can not connect to Active Directory Server.');
     }
 
     ldap_unbind($this->adConnection);
 
-    if ($this->adAuthDBFallback && ! $adResult && \Hash::check($password, $user->getAuthPassword())) {
+    if( $this->adAuthDBFallback && ! $adResult && \Hash::check($password, $user->getAuthPassword()) ) {
       $adResult = true;
     }
     return $adResult;
@@ -158,17 +158,17 @@ class ADAuthUserProvider implements UserProvider {
     $this->adAuthServer = \Config::get('adauth.adAuthServer', array('localhost'));
     $this->adAuthPort = \Config::get('adauth.adAuthPort', 389);
     $this->adAuthShortDomain = \Config::get('adauth.adAuthShortDomain', 'mydomain');
-    $this->adAuthGraftFields = \Config::get('adauth.adAuthGraftFields', []);
+    $this->adAuthGraftFields = \Config::get('adauth.adAuthGraftFields', [ ]);
     $this->adAuthDBFallback = \Config::get('adauth.adAuthDBFallback', false);
     $this->adAuthCreateNew = \Config::get('adauth.adAuthCreateNew', false);
-    $this->adAuthUserDefaults = \Config::get('adauth.adAuthUserDefaults', []);
+    $this->adAuthUserDefaults = \Config::get('adauth.adAuthUserDefaults', [ ]);
     $this->adAuthModel = \Config::get('auth.model', 'App\User');
   }
 
   private function serverConnect() {
     $adConnectionString = '';
 
-    if ( is_array( $this->adAuthServer ) ) {
+    if( is_array($this->adAuthServer) ) {
       foreach( $this->adAuthServer as $server ) {
         $adConnectionString .= 'ldap://' . $server . ':' . $this->adAuthPort . '/ ';
       }
