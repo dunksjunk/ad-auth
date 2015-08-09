@@ -141,8 +141,7 @@ class ADAuthUserProvider implements UserProvider {
       // if it binds, it finds
       $adResult = @ldap_bind($this->adConnection, $this->adAuthShortDomain . '\\' . $username, $password);
         // Grab info here (Future Expansion)
-    }
-    catch( Exception $e ) {
+    } catch( Exception $e ) {
       throw new Exception('Can not connect to Active Directory Server.');
     }
 
