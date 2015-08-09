@@ -129,10 +129,6 @@ class ADAuthUserProvider implements UserProvider {
   }
 
   public function validateCredentials(UserContract $user, array $credentials) {
-    $username = '';
-    $password = '';
-
-    // Find a better way to deal with this
     $username = array_first($credentials, function ($key, $value) {
       return $key != 'password';
     });
@@ -152,10 +148,8 @@ class ADAuthUserProvider implements UserProvider {
 
     ldap_unbind($this->adConnection);
 
-    if ( $this->adAuthDBFallback && ! $adResult ) {
-      if( \Hash::check($password, $user->getAuthPassword())) {
-        $adResult = true;
-      }
+    if ($this->adAuthDBFallback && ! $adResult && \Hash::check($password, $user->getAuthPassword())) {
+      $adResult = true;
     }
     return $adResult;
   }
