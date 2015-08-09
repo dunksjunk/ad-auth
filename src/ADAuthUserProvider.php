@@ -122,7 +122,7 @@ class ADAuthUserProvider implements UserProvider {
     }
 
     if ( $this->adAuthCreateNew ) {
-      return $query->firstOrNew(array_add($this->adAuthUserDefaults, $usernameField, $usernameValue);
+      return $query->firstOrNew(array_add($this->adAuthUserDefaults, $usernameField, $usernameValue));
     } else {
       return $query->first();
     }
