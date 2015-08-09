@@ -129,10 +129,10 @@ class ADAuthUserProvider implements UserProvider {
   }
 
   public function validateCredentials(UserContract $user, array $credentials) {
-    $username = array_first($credentials, function($key, $value) {
+    $username = array_first($credentials, function($key) {
       return $key != 'password';
     });
-    $password = array_first($credentials, function($key, $value) {
+    $password = array_first($credentials, function($key) {
       return $key == 'password';
     });
 
