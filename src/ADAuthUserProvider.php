@@ -109,12 +109,17 @@ class ADAuthUserProvider implements UserProvider {
       if( ! str_contains($key, 'password') ) {
         $usernameField = $key;
         $usernameValue = $value;
-        $query->where($usernameField, $usernameValue);
+        $query->where($usernameField, '=', $usernameValue);
       }
     }
 
     if( $this->adAuthCreateNew ) {
-      return $query->firstOrNew(array_add($this->adAuthUserDefaults, $usernameField, $usernameValue));
+			$result = $query->first();
+			if ( $result ) {
+				return $result;
+			} else {
+				return $this->createModel()->newInstance(array_merge($this->adAuthUserDefaults, [$usernameField => $usernameValue, 'password' => \Hash::make($credentials['password'])] ));
+			}
     } else {
       return $query->first();
     }
@@ -141,6 +146,11 @@ class ADAuthUserProvider implements UserProvider {
     if( $this->adAuthDBFallback && ! $adResult && \Hash::check($password, $user->getAuthPassword()) ) {
       $adResult = true;
     }
+
+    if( $this->adAuthCreateNew && $adResult && $user->exists == false ) {
+			$user->save();
+		}		
+		
     return $adResult;
   }
 
