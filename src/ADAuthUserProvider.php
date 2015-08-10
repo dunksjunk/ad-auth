@@ -156,7 +156,6 @@ class ADAuthUserProvider implements UserProvider {
     $this->adAuthServer = \Config::get('adauth.adAuthServer', array('localhost'));
     $this->adAuthPort = \Config::get('adauth.adAuthPort', 389);
     $this->adAuthShortDomain = \Config::get('adauth.adAuthShortDomain', 'mydomain');
-    $this->adAuthGraftFields = \Config::get('adauth.adAuthGraftFields', [ ]);
     $this->adAuthDBFallback = \Config::get('adauth.adAuthDBFallback', false);
     $this->adAuthCreateNew = \Config::get('adauth.adAuthCreateNew', false);
     $this->adAuthUserDefaults = \Config::get('adauth.adAuthUserDefaults', [ ]);
