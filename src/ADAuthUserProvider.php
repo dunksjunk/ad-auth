@@ -105,24 +105,13 @@ class ADAuthUserProvider implements UserProvider {
     $usernameField = '';
     $usernameValue = '';
 
-    foreach( $credentials as $key => $value ) {
-      if( ! str_contains($key, 'password') ) {
-        $usernameField = $key;
-        $usernameValue = $value;
-        $query->where($usernameField, '=', $usernameValue);
-      }
+    foreach( array_except($credentials, ['password']) as $key => $value ) {
+      $usernameField = $key;
+      $usernameValue = $value;
+      $query->where($usernameField, '=', $usernameValue);
     }
 
-    if( $this->adAuthCreateNew ) {
-			$result = $query->first();
-			if ( $result ) {
-				return $result;
-			} else {
-				return $this->createModel()->newInstance(array_merge($this->adAuthUserDefaults, [$usernameField => $usernameValue, 'password' => \Hash::make($credentials['password'])] ));
-			}
-    } else {
-      return $query->first();
-    }
+    return $this->findUserRecord($query, $usernameField, $usernameValue, $credentials['password']);
   }
 
   public function validateCredentials(UserContract $user, array $credentials) {
@@ -154,6 +143,15 @@ class ADAuthUserProvider implements UserProvider {
     return $adResult;
   }
 
+  private function findUserRecord ( $query, $usernameField, $usernameValue, $password ) {
+    $result = $query->first();
+    if( $this->adAuthCreateNew && $result === null) {
+      return $this->createModel()->newInstance(array_merge($this->adAuthUserDefaults, [$usernameField => $usernameValue, 'password' => \Hash::make($password)] ));
+    }
+    return $result;
+  }
+  
+  
   private function fetchConfig() {
     $this->adAuthServer = \Config::get('adauth.adAuthServer', array('localhost'));
     $this->adAuthPort = \Config::get('adauth.adAuthPort', 389);
