@@ -39,14 +39,6 @@ class ADAuthUserProvider implements UserProvider {
   protected $adAuthModel;
 
   /**
-   * adAuthGraftFields
-   * List of Active Directory fields to graft onto user object
-   *
-   * @var array
-   */
-  protected $adAuthGraftFields;
-
-  /**
    * adAuthDBFallback
    * Auth DB user if user not found on Active Directory
    *
@@ -140,7 +132,6 @@ class ADAuthUserProvider implements UserProvider {
       $this->adConnection = $this->serverConnect();
       // if it binds, it finds
       $adResult = @ldap_bind($this->adConnection, $this->adAuthShortDomain . '\\' . $username, $password);
-        // Grab info here (Future Expansion)
     } catch( Exception $e ) {
       throw new Exception('Can not connect to Active Directory Server.');
     }
