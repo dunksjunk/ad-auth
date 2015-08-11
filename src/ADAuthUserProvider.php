@@ -15,7 +15,7 @@ class ADAuthUserProvider implements UserProvider {
    * List of servers to connect to for authentication
    * @var array
    */
-   protected $adAuthServer;
+    protected $adAuthServer;
 
   /**
    * adAuthPort
@@ -127,13 +127,13 @@ class ADAuthUserProvider implements UserProvider {
     $usernameField = '';
     $usernameValue = '';
 
-    foreach( array_except($credentials, ['password']) as $key => $value ) {
+    foreach( array_except($credentials, [ 'password' ]) as $key => $value ) {
       $usernameField = $key;
       $usernameValue = $value;
       $query->where($usernameField, '=', $usernameValue);
     }
 
-    return $this->findUserRecord($query, $usernameField, $usernameValue, $credentials['password']);
+    return $this->findUserRecord($query, $usernameField, $usernameValue, $credentials[ 'password' ]);
   }
 
   /**
@@ -154,7 +154,7 @@ class ADAuthUserProvider implements UserProvider {
       $this->adConnection = $this->serverConnect();
       // if it binds, it finds
       $adResult = @ldap_bind($this->adConnection, $this->adAuthShortDomain . '\\' . $username, $password);
-    } catch( Exception $e ) {
+    }catch( Exception $e ) {
       throw new Exception('Can not connect to Active Directory Server.');
     }
 
@@ -165,8 +165,8 @@ class ADAuthUserProvider implements UserProvider {
     }
 
     if( $this->adAuthCreateNew && $adResult && $user->exists == false ) {
-			$user->save();
-		}		
+      $user->save();
+    }		
 		
     return $adResult;
   }
@@ -176,10 +176,15 @@ class ADAuthUserProvider implements UserProvider {
    * @param none
    * @return object
    */
+<<<<<<< HEAD
   private function findUserRecord ( $query, $usernameField, $usernameValue, $password ) {
+=======
+  
+  private function findUserRecord($query, $usernameField, $usernameValue, $password) {
+>>>>>>> origin/master
     $result = $query->first();
-    if( $this->adAuthCreateNew && $result === null) {
-      return $this->createModel()->newInstance(array_merge($this->adAuthUserDefaults, [$usernameField => $usernameValue, 'password' => \Hash::make($password)] ));
+    if( $this->adAuthCreateNew && $result === null ) {
+      return $this->createModel()->newInstance(array_merge($this->adAuthUserDefaults, [ $usernameField => $usernameValue, 'password' => \Hash::make($password) ]));
     }
     return $result;
   }
