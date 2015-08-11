@@ -143,6 +143,12 @@ class ADAuthUserProvider implements UserProvider {
     return $adResult;
   }
 
+  /**
+   * Pull up a new AD User Provider
+   * @param none
+   * @return object
+   */
+  
   private function findUserRecord ( $query, $usernameField, $usernameValue, $password ) {
     $result = $query->first();
     if( $this->adAuthCreateNew && $result === null) {
