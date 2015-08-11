@@ -76,7 +76,6 @@ class ADAuthUserProvider implements UserProvider {
 
   /**
    * Pull up a new AD User Provider
-   * @param none
    */
   public function __construct() {
     $this->adAuthModel = \Config::get('auth.model');
@@ -111,7 +110,6 @@ class ADAuthUserProvider implements UserProvider {
    * Set 'remember me' token on user model
    * @param UserContact
    * @param string
-   * @return none
    */
   public function updateRememberToken(UserContract $user, $token) {
     $user->setRememberToken($token);
@@ -173,7 +171,10 @@ class ADAuthUserProvider implements UserProvider {
 
   /**
    * Find user Record or Create new instance, if configuration allows
-   * @param none
+   * @param object
+   * @param string
+   * @param string
+   * @param string
    * @return object
    */
   private function findUserRecord ( $query, $usernameField, $usernameValue, $password ) {
@@ -186,8 +187,6 @@ class ADAuthUserProvider implements UserProvider {
   
   /**
    * Load config files or set defaults
-   * @param none
-   * @return none
    */
   private function fetchConfig() {
     $this->adAuthServer = \Config::get('adauth.adAuthServer', array('localhost'));
@@ -202,7 +201,7 @@ class ADAuthUserProvider implements UserProvider {
   /**
    * Connect to ADS Server or fail
    * @param none
-   * @return object
+   * @return resource
    */
   private function serverConnect() {
     $adConnectionString = '';
