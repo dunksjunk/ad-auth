@@ -105,13 +105,13 @@ class ADAuthUserProvider implements UserProvider {
     $usernameField = '';
     $usernameValue = '';
 
-    foreach( array_except($credentials, ['password']) as $key => $value ) {
+    foreach( array_except($credentials, [ 'password' ]) as $key => $value ) {
       $usernameField = $key;
       $usernameValue = $value;
       $query->where($usernameField, '=', $usernameValue);
     }
 
-    return $this->findUserRecord($query, $usernameField, $usernameValue, $credentials['password']);
+    return $this->findUserRecord($query, $usernameField, $usernameValue, $credentials[ 'password' ]);
   }
 
   public function validateCredentials(UserContract $user, array $credentials) {
@@ -126,7 +126,7 @@ class ADAuthUserProvider implements UserProvider {
       $this->adConnection = $this->serverConnect();
       // if it binds, it finds
       $adResult = @ldap_bind($this->adConnection, $this->adAuthShortDomain . '\\' . $username, $password);
-    } catch( Exception $e ) {
+    }catch( Exception $e ) {
       throw new Exception('Can not connect to Active Directory Server.');
     }
 
@@ -149,10 +149,10 @@ class ADAuthUserProvider implements UserProvider {
    * @return object
    */
   
-  private function findUserRecord ( $query, $usernameField, $usernameValue, $password ) {
+  private function findUserRecord($query, $usernameField, $usernameValue, $password) {
     $result = $query->first();
-    if( $this->adAuthCreateNew && $result === null) {
-      return $this->createModel()->newInstance(array_merge($this->adAuthUserDefaults, [$usernameField => $usernameValue, 'password' => \Hash::make($password)] ));
+    if( $this->adAuthCreateNew && $result === null ) {
+      return $this->createModel()->newInstance(array_merge($this->adAuthUserDefaults, [ $usernameField => $usernameValue, 'password' => \Hash::make($password) ]));
     }
     return $result;
   }
