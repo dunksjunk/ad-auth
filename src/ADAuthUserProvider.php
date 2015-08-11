@@ -137,12 +137,12 @@ class ADAuthUserProvider implements UserProvider {
       throw new Exception('Can not connect to Active Directory Server.');
     }
 
-    return processResult( $user, $password, $adResult );
+    return $this->processResult( $user, $password, $adResult );
   }
 
    /**
    * Processes Validation and fix results based on options
-   * @param object $user
+   * @param UserContract $user
    * @param string $password
    * @param bool $adResult
    * @return bool
