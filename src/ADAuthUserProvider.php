@@ -147,7 +147,7 @@ class ADAuthUserProvider implements UserProvider {
      * @param bool $adResult
      * @return bool
      */ 
-  private function processResult( UserContract $user, $password, $adResult ) {
+  private function processResult(UserContract $user, $password, $adResult) {
     if( $this->adAuthDBFallback && ! $adResult && \Hash::check($password, $user->getAuthPassword()) ) {
       return true;
     }
