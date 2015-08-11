@@ -153,7 +153,7 @@ class ADAuthUserProvider implements UserProvider {
       $this->adConnection = $this->serverConnect();
       // if it binds, it finds
       $adResult = @ldap_bind($this->adConnection, $this->adAuthShortDomain . '\\' . $username, $password);
-    } catch( Exception $e ) {
+    }catch( Exception $e ) {
       throw new Exception('Can not connect to Active Directory Server.');
     }
 
@@ -178,7 +178,7 @@ class ADAuthUserProvider implements UserProvider {
    * @param string
    * @return object
    */
-  private function findUserRecord ( $query, $usernameField, $usernameValue, $password ) {
+  private function findUserRecord($query, $usernameField, $usernameValue, $password) {
     $result = $query->first();
     if( $this->adAuthCreateNew && $result === null ) {
       return $this->createModel()->newInstance(array_merge($this->adAuthUserDefaults, [ $usernameField => $usernameValue, 'password' => \Hash::make($password) ]));
