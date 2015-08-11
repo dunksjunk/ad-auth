@@ -176,12 +176,7 @@ class ADAuthUserProvider implements UserProvider {
    * @param none
    * @return object
    */
-<<<<<<< HEAD
   private function findUserRecord ( $query, $usernameField, $usernameValue, $password ) {
-=======
-  
-  private function findUserRecord($query, $usernameField, $usernameValue, $password) {
->>>>>>> origin/master
     $result = $query->first();
     if( $this->adAuthCreateNew && $result === null ) {
       return $this->createModel()->newInstance(array_merge($this->adAuthUserDefaults, [ $usernameField => $usernameValue, 'password' => \Hash::make($password) ]));
