@@ -6,11 +6,9 @@
 [![Total Downloads][ico-downloads]][link-downloads]
 [![Software License][ico-license]](LICENSE.md)
 
-A Laravel 5.0/5.1 package to add Active Directory authentication and local database user mapping. Optionally, selected LDAP fields can be grafted onto user record. 
+A Laravel 5.0/5.1 package to add Active Directory authentication and local database user mapping.
 
-This tool is optimized and set up for authentication against Microsoft Active Directory Services. For a general LDAP authenticator, please use (coming soon).
-
-Release version numbers will follow Laravel's versions to keep compatibility straight. So ADAuth v5.* should be compatible with Laravel 5.*, and so on. While I am maintaining this project, I will make a best effort to keep fixes and changes current across all maintained versions. Once a Laravel version expires from general use or goes EOL, so will its ADAuth branch. 
+This tool is optimized and set up for authentication against Microsoft Active Directory Services.
 
 ** Pre-release software ** You've been warned.
 ## Install
@@ -56,9 +54,11 @@ Please see [CHANGELOG](CHANGELOG.md) for more information what has changed recen
 
 ## About Dunk's Junk
 
-Most things I publish are tools and routines I use on various projects myself. Many of the offerings out there just don't always fit what I'm doing, or have other problems. 
+Most things I publish are tools and routines I use on various projects myself. Where there may be many other versions, I put out one that works for me better, or so I can learn. I'm putting these projects out there for the public so add another possible tool, or as a learning object. 
 
-I just want to make good, solid, simple tools that are easy to set up and use quickly. Just enough flexibility to fit well, but not so much that the tool gets bloated.
+If you can find a better way of doing something, I'm all ears and will give careful consideration to whatever suggestions come by.  
+
+I just want to make good, solid, and simple tools that are easy to set up and use quickly. Just enough flexibility to fit well, but not so much that the tool itself gets bloated.
 
 
 ## Credits
