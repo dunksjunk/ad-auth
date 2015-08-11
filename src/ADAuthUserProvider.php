@@ -163,7 +163,7 @@ class ADAuthUserProvider implements UserProvider {
       $adResult = true;
     }
 
-    if( $this->adAuthCreateNew && $adResult && $user->exists == false ) {
+    if( $this->adAuthCreateNew && $adResult && $user->exists === false ) {
       $user->save();
     }		
 		
