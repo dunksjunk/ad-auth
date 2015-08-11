@@ -142,9 +142,9 @@ class ADAuthUserProvider implements UserProvider {
 
    /**
    * Processes Validation and fix results based on options
-   * @param object
-   * @param string
-   * @param bool
+   * @param object $user
+   * @param string $password
+   * @param bool $adResult
    * @return bool
    */ 
   private function processResult( UserContract $user, $password, $adResult ) {
