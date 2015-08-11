@@ -23,17 +23,10 @@ return [
    *  adAuthShortDomain: The first segment of your network domain name. 
    *      ex: 'office' if your domain is office.mydomain.com
    */
-  'adAuthServer'  => array('dc1.mydomain.com', 'dc1.mydomain.com'),
+  'adAuthServer'  => ['dc1.mydomain.com', 'dc1.mydomain.com'],
   'adEncryption'  => 'none',
   'adAuthPort'  => 389,
   'adAuthShortDomain'  => 'mydomain',
-    
-  /**
-   * array of field names from domain account to graft onto user record. 
-   *
-   * use: user->(field name);
-   */
-  'adAuthGraftFields'  => array(),
 
   /**
    * If user database record is found, but Active Directory entry is not found,
@@ -42,14 +35,5 @@ return [
    * Good for that initial Administrator record. 
    */
   'adAuthDBFallback'  => true,
-    
-  /**
-   * If user authenticates against Active Directory, but has no database record,
-   * create one and move on, if not, fail user authentication.
-   * 
-   * adAuthUserDefaults: Any default values to insert into new user record. 
-   */
-  'adAuthCreateNew'  => false,
-  'adAuthUserDefaults'  => array(),
     
 ];

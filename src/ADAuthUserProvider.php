@@ -3,7 +3,6 @@
 use Exception;
 use Illuminate\Contracts\Auth\Authenticatable as UserContract;
 use Illuminate\Contracts\Auth\UserProvider;
-use Illuminate\Database\Eloquent\Model;
 
 class ADAuthUserProvider implements UserProvider {
 
@@ -46,22 +45,6 @@ class ADAuthUserProvider implements UserProvider {
    * @var boolean
    */
   protected $adAuthDBFallback;
-
-  /**
-   * adAuthCreateNew
-   * If DB user not found, but Active Directory user is, create DB User
-   *
-   * @var boolean
-   */
-  protected $adAuthCreateNew;
-
-  /**
-   * adAuthUserDefaults
-   * Field defaults if generating new user
-   *
-   * @var array
-   */
-  protected $adAuthUserDefaults;
 
   /**
    * Internal Parameters
@@ -132,7 +115,7 @@ class ADAuthUserProvider implements UserProvider {
       $query->where($usernameField, '=', $usernameValue);
     }
 
-    return $this->findUserRecord($query, $usernameField, $usernameValue, $credentials[ 'password' ]);
+    return $query->first();
   }
 
   /**
@@ -162,35 +145,10 @@ class ADAuthUserProvider implements UserProvider {
     if( $this->adAuthDBFallback && ! $adResult && \Hash::check($password, $user->getAuthPassword()) ) {
       $adResult = true;
     }
-    
-    handleUser();
 		
     return $adResult;
   }
 
-  private function handleUser( Model $user, $adResult ) {
-    if( $this->adAuthCreateNew && $adResult && $user->exists === false ) {
-      $user->save();
-    }	    
-  }
-  
-  
-  /**
-   * Find user Record or Create new instance, if configuration allows
-   * @param object
-   * @param string
-   * @param string
-   * @param string
-   * @return object
-   */
-  private function findUserRecord($query, $usernameField, $usernameValue, $password) {
-    $result = $query->first();
-    if( $this->adAuthCreateNew && $result === null ) {
-      return $this->createModel()->newInstance(array_merge($this->adAuthUserDefaults, [ $usernameField => $usernameValue, 'password' => \Hash::make($password) ]));
-    }
-    return $result;
-  }
-  
   /**
    * Load config files or set defaults
    */
@@ -199,8 +157,6 @@ class ADAuthUserProvider implements UserProvider {
     $this->adAuthPort = \Config::get('adauth.adAuthPort', 389);
     $this->adAuthShortDomain = \Config::get('adauth.adAuthShortDomain', 'mydomain');
     $this->adAuthDBFallback = \Config::get('adauth.adAuthDBFallback', false);
-    $this->adAuthCreateNew = \Config::get('adauth.adAuthCreateNew', false);
-    $this->adAuthUserDefaults = \Config::get('adauth.adAuthUserDefaults', [ ]);
     $this->adAuthModel = \Config::get('auth.model', 'App\User');
   }
 

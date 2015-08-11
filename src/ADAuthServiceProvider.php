@@ -1,6 +1,5 @@
 <?php namespace dunksjunk\ADAuth;
 
-use App\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\ServiceProvider;
 

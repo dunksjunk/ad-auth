@@ -14,5 +14,4 @@ v1.0.0 (Upcoming)
 
 v0.4.0 (You are here)
 - Working version - does basic authentication
-### Added
-- Option - Create user in database from AD fields if it doesn't exist
+- Feature rearrangement and refocus
