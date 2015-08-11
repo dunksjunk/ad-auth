@@ -15,7 +15,7 @@ class ADAuthUserProvider implements UserProvider {
    * List of servers to connect to for authentication
    * @var array
    */
-   protected $adAuthServer;
+    protected $adAuthServer;
 
   /**
    * adAuthPort
@@ -137,8 +137,8 @@ class ADAuthUserProvider implements UserProvider {
     }
 
     if( $this->adAuthCreateNew && $adResult && $user->exists == false ) {
-			$user->save();
-		}		
+      $user->save();
+    }		
 		
     return $adResult;
   }
