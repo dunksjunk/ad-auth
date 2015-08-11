@@ -109,7 +109,7 @@ class ADAuthUserProvider implements UserProvider {
 
   /**
    * Set 'remember me' token on user model
-   * @param UserContact
+   * @param UserContract
    * @param string
    */
   public function updateRememberToken(UserContract $user, $token) {
@@ -141,7 +141,7 @@ class ADAuthUserProvider implements UserProvider {
    * @param array
    * @return boolean
    */
-  public function validateCredentials(Model $user, array $credentials) {
+  public function validateCredentials(UserContract $user, array $credentials) {
     $username = array_first($credentials, function($key) {
       return $key != 'password';
     });
@@ -162,14 +162,21 @@ class ADAuthUserProvider implements UserProvider {
     if( $this->adAuthDBFallback && ! $adResult && \Hash::check($password, $user->getAuthPassword()) ) {
       $adResult = true;
     }
-
-    if( $this->adAuthCreateNew && $adResult && $user->exists === false ) {
-      $user->save();
-    }		
+    
+    handleUser();
 		
     return $adResult;
   }
 
+  private function handleUser( Model $user, $adResult ) {
+    if( $this->adAuthCreateNew && $adResult && $user->exists === false ) {
+      if ( $user instanceof Model && method_exists ( $user, 'save' ) {
+        $user->save();
+      }
+    }	    
+  }
+  
+  
   /**
    * Find user Record or Create new instance, if configuration allows
    * @param object
