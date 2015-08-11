@@ -106,13 +106,9 @@ class ADAuthUserProvider implements UserProvider {
    */
   public function retrieveByCredentials(array $credentials) {
     $query = $this->createModel()->newQuery();
-    $usernameField = '';
-    $usernameValue = '';
 
     foreach( array_except($credentials, [ 'password' ]) as $key => $value ) {
-      $usernameField = $key;
-      $usernameValue = $value;
-      $query->where($usernameField, '=', $usernameValue);
+      $query->where($key, '=', $value);
     }
 
     return $query->first();
@@ -136,11 +132,10 @@ class ADAuthUserProvider implements UserProvider {
       $this->adConnection = $this->serverConnect();
       // if it binds, it finds
       $adResult = @ldap_bind($this->adConnection, $this->adAuthShortDomain . '\\' . $username, $password);
+      ldap_unbind($this->adConnection);
     }catch( Exception $e ) {
       throw new Exception('Can not connect to Active Directory Server.');
     }
-
-    ldap_unbind($this->adConnection);
 
     if( $this->adAuthDBFallback && ! $adResult && \Hash::check($password, $user->getAuthPassword()) ) {
       $adResult = true;
