@@ -3,6 +3,7 @@
 use Exception;
 use Illuminate\Contracts\Auth\Authenticatable as UserContract;
 use Illuminate\Contracts\Auth\UserProvider;
+use Illuminate\Database\Eloquent\Model;
 
 class ADAuthUserProvider implements UserProvider {
 
@@ -136,11 +137,11 @@ class ADAuthUserProvider implements UserProvider {
 
   /**
    * Validate user object based on supplied credentials
-   * @param UserContract
+   * @param Model
    * @param array
    * @return boolean
    */
-  public function validateCredentials(UserContract $user, array $credentials) {
+  public function validateCredentials(Model $user, array $credentials) {
     $username = array_first($credentials, function($key) {
       return $key != 'password';
     });
