@@ -170,9 +170,7 @@ class ADAuthUserProvider implements UserProvider {
 
   private function handleUser( Model $user, $adResult ) {
     if( $this->adAuthCreateNew && $adResult && $user->exists === false ) {
-      if ( $user instanceof Model && method_exists ( $user, 'save' ) {
-        $user->save();
-      }
+      $user->save();
     }	    
   }
   
