@@ -83,10 +83,21 @@ class ADAuthUserProvider implements UserProvider {
     $this->fetchConfig();
   }
 
+  /**
+   * Fetch user from database based on id
+   * @param integer
+   * @return object
+   */
   public function retrieveById($identifier) {
     return $this->createModel()->newQuery()->find($identifier);
   }
 
+  /**
+   * Fetch user from database on id & token
+   * @param integer
+   * @param integer
+   * @return object
+   */
   public function retrieveByToken($identifier, $token) {
     $model = $this->createModel();
 
@@ -96,10 +107,21 @@ class ADAuthUserProvider implements UserProvider {
         ->first();
   }
 
+  /**
+   * Set 'remember me' token on user model
+   * @param UserContact
+   * @param string
+   * @return none
+   */
   public function updateRememberToken(UserContract $user, $token) {
     $user->setRememberToken($token);
   }
 
+  /**
+   * Fetch user from databased on credentials supplied
+   * @param array`
+   * @return object
+   */
   public function retrieveByCredentials(array $credentials) {
     $query = $this->createModel()->newQuery();
     $usernameField = '';
@@ -114,6 +136,12 @@ class ADAuthUserProvider implements UserProvider {
     return $this->findUserRecord($query, $usernameField, $usernameValue, $credentials['password']);
   }
 
+  /**
+   * Validate user object based on supplied credentials
+   * @param UserContract
+   * @param array
+   * @return boolean
+   */
   public function validateCredentials(UserContract $user, array $credentials) {
     $username = array_first($credentials, function($key) {
       return $key != 'password';
@@ -144,11 +172,10 @@ class ADAuthUserProvider implements UserProvider {
   }
 
   /**
-   * Pull up a new AD User Provider
+   * Find user Record or Create new instance, if configuration allows
    * @param none
    * @return object
    */
-  
   private function findUserRecord ( $query, $usernameField, $usernameValue, $password ) {
     $result = $query->first();
     if( $this->adAuthCreateNew && $result === null) {
@@ -157,7 +184,11 @@ class ADAuthUserProvider implements UserProvider {
     return $result;
   }
   
-  
+  /**
+   * Load config files or set defaults
+   * @param none
+   * @return none
+   */
   private function fetchConfig() {
     $this->adAuthServer = \Config::get('adauth.adAuthServer', array('localhost'));
     $this->adAuthPort = \Config::get('adauth.adAuthPort', 389);
@@ -168,6 +199,11 @@ class ADAuthUserProvider implements UserProvider {
     $this->adAuthModel = \Config::get('auth.model', 'App\User');
   }
 
+  /**
+   * Connect to ADS Server or fail
+   * @param none
+   * @return object
+   */
   private function serverConnect() {
     $adConnectionString = '';
 
@@ -187,6 +223,11 @@ class ADAuthUserProvider implements UserProvider {
     return $this->adConnection;
   }
 
+  /**
+   * Create User Model Object
+   * @param none
+   * @return object
+   */
   public function createModel() {
     $class = '\\' . ltrim($this->adAuthModel, '\\');
     return new $class;
