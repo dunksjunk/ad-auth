@@ -174,7 +174,7 @@ class ADAuthUserProvider implements UserProvider {
   private function fetchConfig() {
     $this->adAuthServer = Config::get('adauth.adAuthServer', ['localhost']);
     $this->adEncryption =  Config::get('adauth.adEncryption', 'none');
-    $this->adAuthPort = Config(::get'adauth.adAuthPort', strtoupper($this->adEncryption) == 'TLS' ? 636:389);
+    $this->adAuthPort = Config::get('adauth.adAuthPort', strtoupper($this->adEncryption) == 'TLS' ? 636:389);
     $this->adAuthShortDomain = Config::get('adauth.adAuthShortDomain', 'mydomain');
     $this->adAuthDBFallback = Config::get('adauth.adAuthDBFallback', false);
     $this->adAuthModel = Config::get('auth.model', 'App\User');
