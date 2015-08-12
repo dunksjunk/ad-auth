@@ -172,7 +172,7 @@ class ADAuthUserProvider implements UserProvider {
    * Load config files or set defaults
    */
   private function fetchConfig() {
-    $this->adAuthServer = config('adauth.adAuthServer', array('localhost'));
+    $this->adAuthServer = config('adauth.adAuthServer', ['localhost']);
     $this->adEncryption =  config('adauth.adEncryption', 'none');
     $this->adAuthPort = config('adauth.adAuthPort', strtoupper($this->adEncryption) == 'TLS' ? 636:389);
     $this->adAuthShortDomain = config('adauth.adAuthShortDomain', 'mydomain');
