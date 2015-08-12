@@ -172,12 +172,12 @@ class ADAuthUserProvider implements UserProvider {
    * Load config files or set defaults
    */
   private function fetchConfig() {
-    $this->adAuthServer = config('adauth.adAuthServer', ['localhost']);
-    $this->adEncryption =  config('adauth.adEncryption', 'none');
-    $this->adAuthPort = config('adauth.adAuthPort', strtoupper($this->adEncryption) == 'TLS' ? 636:389);
-    $this->adAuthShortDomain = config('adauth.adAuthShortDomain', 'mydomain');
-    $this->adAuthDBFallback = config('adauth.adAuthDBFallback', false);
-    $this->adAuthModel = config('auth.model', 'App\User');
+    $this->adAuthServer = Config::get('adauth.adAuthServer', ['localhost']);
+    $this->adEncryption =  Config::get('adauth.adEncryption', 'none');
+    $this->adAuthPort = Config(::get'adauth.adAuthPort', strtoupper($this->adEncryption) == 'TLS' ? 636:389);
+    $this->adAuthShortDomain = Config::get('adauth.adAuthShortDomain', 'mydomain');
+    $this->adAuthDBFallback = Config::get('adauth.adAuthDBFallback', false);
+    $this->adAuthModel = Config::get('auth.model', 'App\User');
     $this->adPrefix = strtoupper($this->adEncryption) == 'SSL' ? 'ldaps://':'ldap://';
   }
 
