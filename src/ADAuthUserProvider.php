@@ -1,5 +1,6 @@
 <?php namespace dunksjunk\ADAuth;
 
+use Config;
 use Exception;
 use Illuminate\Contracts\Auth\Authenticatable as UserContract;
 use Illuminate\Contracts\Auth\UserProvider;
@@ -17,6 +18,13 @@ class ADAuthUserProvider implements UserProvider {
    */
     protected $adAuthServer;
 
+  /**
+   * adEncryption
+   * Encryption Toggle
+   * @var string
+   */    
+    protected $adEncryption;
+    
   /**
    * adAuthPort
    * Server port. Default 389 or 636 for SSL
@@ -57,6 +65,12 @@ class ADAuthUserProvider implements UserProvider {
    */
   protected $adConnection;
 
+  /**
+   * Connection prefix
+   *
+   * @var string
+   */
+  protected $adPrefix;
 
   /**
    * Pull up a new AD User Provider
@@ -158,11 +172,13 @@ class ADAuthUserProvider implements UserProvider {
    * Load config files or set defaults
    */
   private function fetchConfig() {
-    $this->adAuthServer = \Config::get('adauth.adAuthServer', array('localhost'));
-    $this->adAuthPort = \Config::get('adauth.adAuthPort', 389);
-    $this->adAuthShortDomain = \Config::get('adauth.adAuthShortDomain', 'mydomain');
-    $this->adAuthDBFallback = \Config::get('adauth.adAuthDBFallback', false);
-    $this->adAuthModel = \Config::get('auth.model', 'App\User');
+    $this->adAuthServer = config('adauth.adAuthServer', array('localhost'));
+    $this->adEncryption =  config('adauth.adEncryption', 'none');
+    $this->adAuthPort = config('adauth.adAuthPort', strtoupper($this->adEncryption) == 'TLS' ? 636:389);
+    $this->adAuthShortDomain = config('adauth.adAuthShortDomain', 'mydomain');
+    $this->adAuthDBFallback = config('adauth.adAuthDBFallback', false);
+    $this->adAuthModel = config('auth.model', 'App\User');
+    $this->adPrefix = strtoupper($this->adEncryption) == 'SSL' ? 'ldaps://':'ldap://';
   }
 
   /**
@@ -175,7 +191,7 @@ class ADAuthUserProvider implements UserProvider {
 
     if( is_array($this->adAuthServer) ) {
       foreach( $this->adAuthServer as $server ) {
-        $adConnectionString .= 'ldap://' . $server . ':' . $this->adAuthPort . '/ ';
+        $adConnectionString .= $this->adPrefix . $server . ':' . $this->adAuthPort . '/ ';
       }
     } else {
       $adConnectionString = $this->adAuthServer;
@@ -186,6 +202,10 @@ class ADAuthUserProvider implements UserProvider {
     ldap_set_option($this->adConnection, LDAP_OPT_PROTOCOL_VERSION, 3);
     ldap_set_option($this->adConnection, LDAP_OPT_REFERRALS, 0);
 
+    if(strtoupper($this->adEncryption) == 'TLS') {
+      ldap_start_tls($this->adConnection);
+    }    
+    
     return $this->adConnection;
   }
 
