@@ -202,12 +202,12 @@ class ADAuthUserProvider implements UserProvider {
     ldap_set_option($this->adConnection, LDAP_OPT_PROTOCOL_VERSION, 3);
     ldap_set_option($this->adConnection, LDAP_OPT_REFERRALS, 0);
 
-    handleTLS();
+    $this->handleTLS();
     
     return $this->adConnection;
   }
 
-  private function haldleTLS() {
+  private function handleTLS() {
     if(strtoupper($this->adEncryption) == 'TLS') {
       ldap_start_tls($this->adConnection);
     }  
