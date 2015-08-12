@@ -208,7 +208,7 @@ class ADAuthUserProvider implements UserProvider {
   }
 
   private function handleTLS() {
-    if(strtoupper($this->adEncryption) == 'TLS') {
+    if( strtoupper($this->adEncryption) == 'TLS' ) {
       ldap_start_tls($this->adConnection);
     }  
   }
