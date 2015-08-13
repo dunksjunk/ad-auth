@@ -3,7 +3,7 @@
 All Notable changes to `ADAuth` will be documented in this file
 
 
-v1.0.0 (Upcoming)
+v1.0.0
 - First Production Release
 ### Added
 - LDAPS support (requires OpenSSL)
@@ -12,6 +12,3 @@ v1.0.0 (Upcoming)
 ### Removed
 - Pre-release flag
 
-v0.4.0 (You are here)
-- Working version - does basic authentication
-- Feature rearrangement and refocus

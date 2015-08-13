@@ -23,16 +23,16 @@ return [
    *  adAuthShortDomain: The first segment of your network domain name. 
    *      ex: 'office' if your domain is office.mydomain.com
    */
-  'adAuthServer'  => [ 'dc1.mydomain.com', 'dc1.mydomain.com' ],
+  'adAuthServer'  => [ 'dc1.mydomain.com', 'dc2.mydomain.com' ],
   'adEncryption'  => 'none',
   'adAuthPort'  => 389,
   'adAuthShortDomain'  => 'mydomain',
 
   /**
-   * If user database record is found, but Active Directory entry is not found,
-   * authenticate against password in database (if set). 
+   * If active directory doesn't authenticate, due to no user entry or bad
+   * password, authenticate against record in database (if present). 
    * 
-   * Good for that initial Administrator record. 
+   * Good for that initial Admin record with no AD counterpart, or backup passwords. 
    */
   'adAuthDBFallback'  => true,
     

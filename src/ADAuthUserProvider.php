@@ -22,9 +22,9 @@ class ADAuthUserProvider implements UserProvider {
    * adEncryption
    * Encryption Toggle
    * @var string
-   */    
+   */
     protected $adEncryption;
-    
+
   /**
    * adAuthPort
    * Server port. Default 389 or 636 for SSL
@@ -160,14 +160,14 @@ class ADAuthUserProvider implements UserProvider {
      * @param string $password
      * @param bool $adResult
      * @return bool
-     */ 
+     */
   private function processResult(UserContract $user, $password, $adResult) {
     if( $this->adAuthDBFallback && ! $adResult && \Hash::check($password, $user->getAuthPassword()) ) {
       return true;
     }
     return $adResult;
   }
-  
+
   /**
    * Load config files or set defaults
    */
@@ -203,16 +203,19 @@ class ADAuthUserProvider implements UserProvider {
     ldap_set_option($this->adConnection, LDAP_OPT_REFERRALS, 0);
 
     $this->handleTLS();
-    
+
     return $this->adConnection;
   }
 
+  /**
+   * Start TLS if requested
+   */  
   private function handleTLS() {
     if( strtoupper($this->adEncryption) == 'TLS' ) {
       ldap_start_tls($this->adConnection);
-    }  
+    }
   }
-  
+
   /**
    * Create User Model Object
    * @param none
