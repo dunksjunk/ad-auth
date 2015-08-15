@@ -1,9 +1,9 @@
 # ADAuth
 
+[![Supported Laravel Version][laravel-version]][link-laravel]
 [![Latest Version on Packagist][ico-version]][link-packagist]
 [![Build Status][ico-build-status]][link-build-status]
 [![Quality Score][ico-code-quality]][link-code-quality]
-[![Total Downloads][ico-downloads]][link-downloads]
 [![Software License][ico-license]](LICENSE.md)
 
 A Laravel 5.0/5.1 package to add Active Directory authentication and local database user mapping.
@@ -74,15 +74,16 @@ I just want to make good, solid, and simple tools that are easy to set up and us
 
 The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
 
+[laravel-version]: https://img.shields.io/badge/Laravel-5-blue.svg?style=flat-square
 [ico-version]: https://img.shields.io/packagist/v/dunksjunk/ad-auth.svg?style=flat-square
 [ico-license]: https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square
 [ico-build-status]: https://img.shields.io/scrutinizer/build/g/dunksjunk/ad-auth.svg
 [ico-code-quality]: https://img.shields.io/scrutinizer/g/dunksjunk/ad-auth.svg?style=flat-square
 [ico-downloads]: https://img.shields.io/packagist/dt/dunksjunk/ad-auth.svg?style=flat-square
 
+[link-laravel]: http://laravel.com/
 [link-packagist]: https://packagist.org/packages/dunksjunk/ad-auth
 [link-scrutinizer]: https://scrutinizer-ci.com/g/dunksjunk/ad-auth/code-structure
 [link-build-status]: https://scrutinizer-ci.com/g/dunksjunk/ad-auth/build-status/master
 [link-code-quality]: https://scrutinizer-ci.com/g/dunksjunk/ad-auth
-[link-downloads]: https://packagist.org/packages/dunksjunk/ad-auth
 [link-author]: https://github.com/dunksjunk
